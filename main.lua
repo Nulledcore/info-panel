@@ -1,3 +1,8 @@
+--[[
+    credits: kopretinka, Aviarita, estk, user64, rave1337, sapphyrus
+    Wrote this 2AM and I feel like dying, if there's some stupid stuff, make a pull request or post in *issues* on my git.
+]]
+
 local img = require("gamesense/images") or error("Images library is required")
 local csgo_weapons = require("gamesense/csgo_weapons") or error("CS:GO weapon data is required")
 local w, h = client.screen_size()
@@ -40,8 +45,9 @@ client.set_event_callback("paint", function()
         if avatar ~= nil then 
             avatar:draw((ui.get(force_left) and w/w+5 or w-35), h/2-25+(i*36), 20, 20, 255, 255, 255, 255, true)
         else
-            renderer.rectangle((ui.get(force_left) and w/w+5 or w-35), h/2-25+(i*36), 20, 20, 0, 0, 0, 135)
-            renderer.text((ui.get(force_left) and w/w+10 or w-30), h/2-21+(i*36), 255, 255, 255, 255, "-", nil, "AI")
+            renderer.rectangle((ui.get(force_left) and w/w+4 or w-34), h/2-23+(i*36), 20, 20, 17, 17, 17, 255)
+            renderer.rectangle((ui.get(force_left) and w/w+5 or w-35), h/2-22+(i*36), 18, 18, 0, 0, 0, 155)
+            renderer.text((ui.get(force_left) and w/w+9 or w-31), h/2-19+(i*36), 255, 255, 255, 255, "-", nil, "AI")
         end
         if ui.get(display_items) then
             if entity.get_prop(player, "m_bHasDefuser") == 1 then
@@ -76,6 +82,7 @@ client.set_event_callback("paint", function()
                 bomb:draw((ui.get(force_left) and w/w+150 or w-170), h/2-25, 17, 25, 255, 255, 255, 255, true)
             end
         end
+        
         avatar:draw((ui.get(force_left) and w/w+5 or w-35), h/2-23, 20, 20, 255, 255, 255, 255, true)
         renderer.text((ui.get(force_left) and w/w+35 or w-47), h/2-25, 46, 204, 113, 255, ui.get(force_left) and "-" or "-r", 0, p.name)
         draw_slider((ui.get(force_left) and w/w+35 or w-145), h/2-25, 100, ui.get(locations) and p.location or "", math.min(1, p.hp/100-0.02), p.hp, "", true, clr, clr2)

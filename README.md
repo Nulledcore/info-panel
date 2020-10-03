@@ -7,7 +7,7 @@
   <img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/nulledcore/info-panel">
 </a>
 <a href="https://github.com/Nulledcore/info-panel/releases/tag/v1.0">
-  <img alt="GitHub issues" src="https://img.shields.io/github/issues/nulledcore/info-panel">
+  <img alt="GitHub issues" src="https://github.com/Nulledcore/info-panel/issues">
 </a>
 <a href="https://github.com/Nulledcore/info-panel/releases/tag/v1.0">
   <img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/nulledcore/info-panel/total">

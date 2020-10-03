@@ -1,5 +1,7 @@
 ### Info Panel
 ##### credits: kopretinka, Aviarita, estk, user64, rave1337, sapphyrus
+![GitHub last commit](https://img.shields.io/github/last-commit/nulledcore/info-panel) ![GitHub Releases](https://img.shields.io/github/downloads/nulledcore/info-panel/v1.0/total) ![GitHub issues](https://img.shields.io/github/issues/nulledcore/info-panel)
+
 ![credits: kopretinka, Aviarita, estk, user64, rave1337, sapphyrus](https://nullified.s-ul.eu/GdSjEcOd)
 
 ##### Requirements: https://gamesense.pub/forums/viewtopic.php?id=22917 & https://gamesense.pub/forums/viewtopic.php?id=18807

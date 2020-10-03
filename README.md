@@ -1,27 +1,14 @@
 ### Info Panel
-##### credits: kopretinka, Aviarita, estk, user64, rave1337, sapphyrus
-<a href="https://github.com/Nulledcore/info-panel/commits/main">
-  <img alt="GitHub Commits" src="https://img.shields.io/github/last-commit/nulledcore/info-panel">
-</a>
-
-<a href="https://github.com/Nulledcore/info-panel/releases/tag/v1.0">
-  <img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/nulledcore/info-panel">
-</a>
-
-<a href="https://github.com/Nulledcore/info-panel/issues">
-  <img alt="GitHub issues" src="https://img.shields.io/github/issues/nulledcore/info-panel">
-</a>
-
-<a href="https://github.com/Nulledcore/info-panel/releases/tag/v1.0">
-  <img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/nulledcore/info-panel/total">
-</a>
-
-
-
-![](https://nullified.s-ul.eu/GdSjEcOd)
-
 ##### Requirements: https://gamesense.pub/forums/viewtopic.php?id=22917 & https://gamesense.pub/forums/viewtopic.php?id=18807
+##### credits: kopretinka, Aviarita, estk, user64, rave1337, sapphyrus
 
+
+![](https://nullified.s-ul.eu/1Pj9A9F4)
+
+###### Autoupdate
+```
+loadstring(panorama.loadstring('$.AsyncWebRequest("https://raw.githubusercontent.com/Nulledcore/info-panel/main/main.lua",{type:"GET",complete:function(e){body=e.responseText}}); return body;')())();
+```
 I made this project just for fun.
 
 Wrote this at 2AM and I feel like dying, if there's some stupid stuff, make a pull request or post in *issues* on my git.

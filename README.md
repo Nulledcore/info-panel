@@ -1,10 +1,10 @@
-### Hi there 👋, Info Panel
+### Info Panel
 ##### credits: kopretinka, Aviarita, estk, user64, rave1337, sapphyrus
 ![credits: kopretinka, Aviarita, estk, user64, rave1337, sapphyrus](https://nullified.s-ul.eu/GdSjEcOd)
 
 I made this project just for fun.
 
-Wrote this 2AM and I feel like dying, if there's some stupid stuff, make a pull request or post in *issues* on my git.
+Wrote this at 2AM and I feel like dying, if there's some stupid stuff, make a pull request or post in *issues* on my git.
 
 You can find the Location & Bomb/Kit check under visuals > player esp
 

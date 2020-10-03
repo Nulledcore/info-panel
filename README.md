@@ -3,11 +3,15 @@
 ![credits: kopretinka, Aviarita, estk, user64, rave1337, sapphyrus](https://nullified.s-ul.eu/GdSjEcOd)
 
 I made this project just for fun.
+
 Wrote this 2AM and I feel like dying, if there's some stupid stuff, make a pull request or post in *issues* on my git.
 
+You can find the Location & Bomb/Kit check under visuals > player esp
+
+And the toggle for left/right under Lua > A
 
 
-- 💬 Ask me about LUA, GSAPI 
+- 💬 Ask me about LUA, GS-API 
 - 📫 How to reach me: Github, Twitter 
 - ⚡ Fun fact: I like making luas nobody asked for. 
 

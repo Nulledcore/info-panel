@@ -1,8 +1,21 @@
 ### Info Panel
 ##### credits: kopretinka, Aviarita, estk, user64, rave1337, sapphyrus
-![GitHub last commit](https://img.shields.io/github/last-commit/nulledcore/info-panel) ![GitHub Releases](https://img.shields.io/github/downloads/nulledcore/info-panel/v1.0/total) ![GitHub issues](https://img.shields.io/github/issues/nulledcore/info-panel)
+<a href="https://github.com/Nulledcore/info-panel/commits/main">
+  <img alt="GitHub Commits" src="https://img.shields.io/github/last-commit/nulledcore/info-panel">
+</a>
+<a href="https://github.com/Nulledcore/info-panel/releases/tag/v1.0">
+  <img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/nulledcore/info-panel">
+</a>
+<a href="https://github.com/Nulledcore/info-panel/releases/tag/v1.0">
+  <img alt="GitHub issues" src="https://img.shields.io/github/issues/nulledcore/info-panel">
+</a>
+<a href="https://github.com/Nulledcore/info-panel/releases/tag/v1.0">
+  <img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/nulledcore/info-panel/total">
+</a>
 
-![credits: kopretinka, Aviarita, estk, user64, rave1337, sapphyrus](https://nullified.s-ul.eu/GdSjEcOd)
+
+
+![](https://nullified.s-ul.eu/GdSjEcOd)
 
 ##### Requirements: https://gamesense.pub/forums/viewtopic.php?id=22917 & https://gamesense.pub/forums/viewtopic.php?id=18807
 

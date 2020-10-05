@@ -28,8 +28,6 @@ local function draw_slider(x, y, w, name, perc, te, t_add, show, clr, clr2)
 end
 
 client.set_event_callback("paint", function()
-    local clr = {148, 184, 6, 255}
-    local clr2 = {98, 134, 0, 255}
     local player_resource = entity.get_all("CCSPlayerResource")[1]
     if player_resource == nil then end
     local c4_holder = entity.get_prop(player_resource, "m_iPlayerC4")
@@ -62,7 +60,7 @@ client.set_event_callback("paint", function()
             end
         end
         renderer.text((ui.get(force_left) and w/w+35 or w-47), h/2-25+(i*36), r,g,b, 255, ui.get(force_left) and "-" or "-r", 0, p.name)
-        draw_slider((ui.get(force_left) and w/w+35 or w-145),  h/2-25+(i*36), 100, ui.get(locations) and p.location or "", math.min(1, p.hp/100-0.02), p.hp, "", true, clr, clr2)
+        draw_slider((ui.get(force_left) and w/w+35 or w-145),  h/2-25+(i*36), 100, ui.get(locations) and p.location or "", math.min(1, p.hp/100-0.02), p.hp, "", true, {148, 184, 6, 255}, {98, 134, 0, 255})
     end
 
     if entity.get_local_player() then
@@ -85,6 +83,6 @@ client.set_event_callback("paint", function()
         
         avatar:draw((ui.get(force_left) and w/w+5 or w-35), h/2-23, 20, 20, 255, 255, 255, 255, true)
         renderer.text((ui.get(force_left) and w/w+35 or w-47), h/2-25, 46, 204, 113, 255, ui.get(force_left) and "-" or "-r", 0, p.name)
-        draw_slider((ui.get(force_left) and w/w+35 or w-145), h/2-25, 100, ui.get(locations) and p.location or "", math.min(1, p.hp/100-0.02), p.hp, "", true, clr, clr2)
+        draw_slider((ui.get(force_left) and w/w+35 or w-145), h/2-25, 100, ui.get(locations) and p.location or "", math.min(1, p.hp/100-0.02), p.hp, "", true, {148, 184, 6, 255}, {98, 134, 0, 255})
     end
 end)

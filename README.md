@@ -5,18 +5,9 @@
 
 ![](https://nullified.s-ul.eu/1Pj9A9F4)
 
-###### Autoupdate
-```
-loadstring(panorama.loadstring('$.AsyncWebRequest("https://raw.githubusercontent.com/Nulledcore/info-panel/main/main.lua",{type:"GET",complete:function(e){body=e.responseText}}); return body;')())();
-```
 I made this project just for fun.
 
 Wrote this at 2AM and I feel like dying, if there's some stupid stuff, make a pull request or post in *issues* on my git.
-
-You can find the Location & Bomb/Kit check under visuals > player esp
-
-And the toggle for left/right under Lua > A
-
 
 - 💬 Ask me about LUA, GS-API 
 - 📫 How to reach me: Github, Twitter 

@@ -1,99 +1,91 @@
 local img = require("gamesense/images") or error("Images library is required")
 local csgo_weapons = require("gamesense/csgo_weapons") or error("CS:GO weapon data is required")
+local surface = require('gamesense/surface') or error("Surface is required")
+local font = surface.create_font("Arial", 13, 500, {0x200})
 local w, h = client.screen_size()
-local ind_enable = ui.new_checkbox("visuals", "player esp", "Info panel")
-local ind_loc = ui.new_combobox("visuals", "player esp", "\n", {"Right", "Left"})
-local display_locations = ui.new_checkbox("visuals", "player esp", "Locations")
-local display_items = ui.new_checkbox("visuals", "player esp", "Kit/Bomb check")
+local enable_hud = ui.new_checkbox("visuals", "player esp", "Legit HUD")
 
-local function draw_slider(x, y, w, name, perc, te, t_add, show, clr, clr2)
-    local off_ = name ~= "" and name ~= " " and name ~= nil and 15 or 0
-    local ba = clr[4]-90
-    ba = ba >= 0 and ba or 0
-    if name ~= "" and name ~= " " and name ~= nil then
-        renderer.text(x+(ui.get(ind_loc) == "Left" and 98 or 0), y, 220, 220, 220, clr[4], ui.get(ind_loc) == "Left" and "r-" or "-", 0, string.upper(name))
+local function localplayer()
+    local real_lp = entity.get_local_player()
+    if entity.is_alive(real_lp) then
+        return real_lp
+    else
+        local obvserver = entity.get_prop(real_lp, "m_hObserverTarget")
+        return obvserver ~= nil and obvserver <= 64 and obvserver or nil
     end
-    renderer.rectangle(x, y+15, w, 7, 0, 0, 0, clr[4])
-    renderer.gradient(x+1, y+16, w-2, 5, 70, 70, 70, 255, 50, 50, 50, clr[4], false)
-    renderer.gradient(x+1, y+16, w*(perc), 5, clr[1], clr[2], clr[3], clr[4], clr2[1], clr2[2], clr2[3], clr2[4], false)
-    if te < 99 and te > 0 then
-        renderer.text(x+1+w*(perc), y+21, 220, 220, 220, clr[4], "c-", 0, te .. t_add)
+end
+
+local function collect_players()
+    local results = {}
+    local lp_origin = {entity.get_origin(localplayer())}
+
+    for i=1, 64 do
+        if entity.is_alive(i) and entity.is_enemy(i) then
+            local player_origin = {entity.get_origin(i)}
+            if player_origin[1] ~= nil and lp_origin[1] ~= nil then
+                table.insert(results, {i})
+            end
+        end
     end
+    return results
+end
+
+local function team_check(enemy)
+    local return_clr
+    if entity.get_prop(enemy, "m_iTeamNum") == 2 then
+        return_clr = {254, 183, 0}
+    elseif entity.get_prop(enemy, "m_iTeamNum") == 3 then
+        return_clr = {107, 160, 255}
+    end
+
+    return return_clr
 end
 
 local function main()
-    local player_resource = entity.get_all("CCSPlayerResource")[1]
-    if player_resource == nil then end
-    local c4_holder = entity.get_prop(player_resource, "m_iPlayerC4")
-    local players = entity.get_players(true)
-    for i=1, #players do
-        local player = players[i]
-        local steamid3 = entity.get_steam64(player)
+    if localplayer() == nil then
+        return
+    end
+    if entity.is_alive(localplayer()) then
+        local steamid3 = entity.get_steam64(localplayer())
         local avatar = img.get_steam_avatar(steamid3)
-        local p = { name=entity.get_player_name(player):upper():sub(0, 10), hp=entity.get_prop(player, "m_iHealth"), location=entity.get_prop(player, "m_szLastPlaceName"):upper():sub(0, 10) }
-        if entity.get_prop(player, "m_iTeamNum") == 3 then r,g,b = 65, 123, 240
-        elseif entity.get_prop(player, "m_iTeamNum") == 2 then r,g,b = 221, 189, 42
-        end
+        local p = { name=entity.get_player_name(localplayer()), location=entity.get_prop(localplayer(), "m_szLastPlaceName") }
+        renderer.rectangle(w/w+4, h/2-24, 22, 22, 17, 17, 17, 255)
         if avatar ~= nil then 
-            avatar:draw((ui.get(ind_loc) == "Left" and w/w+5 or w-35), h/2-25+(i*36), 20, 20, 255, 255, 255, 255, true)
+            avatar:draw(w/w+5, h/2-23, 20, 20, 255, 255, 255, 255, true)
         else
-            renderer.rectangle((ui.get(ind_loc) == "Left" and w/w+4 or w-34), h/2-23+(i*36), 20, 20, 17, 17, 17, 255)
-            renderer.rectangle((ui.get(ind_loc) == "Left" and w/w+5 or w-35), h/2-22+(i*36), 18, 18, 0, 0, 0, 155)
-            renderer.text((ui.get(ind_loc) == "Left" and w/w+9 or w-31), h/2-19+(i*36), 255, 255, 255, 255, "-", nil, "AI")
+            renderer.text(w/w+10, h/2-19, 255, 255, 255, 255, "-", nil, "AI")
         end
-        if ui.get(display_items) then
-            if entity.get_prop(player, "m_bHasDefuser") == 1 then
-                local defuser = img.get_weapon_icon("item_defuser")
-                defuser:draw((ui.get(ind_loc) == "Left" and w/w+150 or w-170), h/2-25+(i*36), 18, 26, 15, 15, 15, 255, true)
-                defuser:draw((ui.get(ind_loc) == "Left" and w/w+150 or w-170), h/2-25+(i*36), 17, 25, 255, 255, 255, 255, true)
-            end
-            if c4_holder == player then
-                local bomb = img.get_weapon_icon("weapon_c4")
-                bomb:draw((ui.get(ind_loc) == "Left" and w/w+150 or w-170), h/2-25+(i*36), 18, 26, 15, 15, 15, 255, true)
-                bomb:draw((ui.get(ind_loc) == "Left" and w/w+150 or w-170), h/2-25+(i*36), 17, 25, 255, 255, 255, 255, true)
-            end
-        end
-        renderer.text((ui.get(ind_loc) == "Left" and w/w+35 or w-47), h/2-25+(i*36), r,g,b, 255, ui.get(ind_loc) == "Left" and "-" or "-r", 0, p.name)
-        draw_slider((ui.get(ind_loc) == "Left" and w/w+35 or w-145),  h/2-25+(i*36), 100, ui.get(display_locations) and p.location or "", math.min(1, p.hp/100-0.02), p.hp, "", true, {148, 184, 6, 255}, {98, 134, 0, 255})
+
+        surface.draw_text(w/w+30, h/2-25, 46, 204, 113, 255, font, p.name)
+        surface.draw_text(w/w+30, h/2-15, 255, 255, 255, 255, font, p.location)
     end
 
-    if entity.is_alive(entity.get_local_player()) then
-        local steamid3 = entity.get_steam64(entity.get_local_player())
-        local avatar = img.get_steam_avatar(steamid3)
-        local p = { name=entity.get_player_name(entity.get_local_player()):upper():sub(0, 10), hp=entity.get_prop(entity.get_local_player(), "m_iHealth"), location=entity.get_prop(entity.get_local_player(), "m_szLastPlaceName"):upper():sub(0, 10) }
-
-        if ui.get(display_items) then
-            if entity.get_prop(entity.get_local_player(), "m_bHasDefuser") == 1 then
-                local defuser = img.get_weapon_icon("item_defuser")
-                defuser:draw((ui.get(ind_loc) == "Left" and w/w+150 or w-170), h/2-25, 18, 26, 15, 15, 15, 255, true)
-                defuser:draw((ui.get(ind_loc) == "Left" and w/w+150 or w-170), h/2-25, 17, 25, 255, 255, 255, 255, true)
-            end
-            if c4_holder == entity.get_local_player() then
-                local bomb = img.get_weapon_icon("weapon_c4")
-                bomb:draw((ui.get(ind_loc) == "Left" and w/w+150 or w-170), h/2-25, 18, 26, 15, 15, 15, 255, true)
-                bomb:draw((ui.get(ind_loc) == "Left" and w/w+150 or w-170), h/2-25, 17, 25, 255, 255, 255, 255, true)
-            end
+    local enemies = collect_players()
+    for i=1, #enemies do
+        local enemy = unpack(enemies[i])
+        local color = entity.is_dormant(enemy) and {200, 200, 200, 255} or {255, 255, 255, 255}
+        local team_color = entity.is_dormant(enemy) and {200, 200, 200, 255} or team_check(enemy)
+        local p = { name=entity.get_player_name(enemy), location=entity.get_prop(enemy, "m_szLastPlaceName") }
+        surface.draw_text(w/w+30, h/2-25+(i*36), team_color[1], team_color[2], team_color[3], 255, font, p.name)
+        surface.draw_text(w/w+30, h/2-15+(i*36), color[1], color[2], color[3], 255, font, p.location)
+        renderer.rectangle(w/w+4, h/2-24+(i*36), 22, 22, 17, 17, 17, 255)
+        if avatar ~= nil then 
+            avatar:draw(w/w+4, h/2-24+(i*36), 20, 20, 255, 255, 255, 255, true)
+        else
+            renderer.text(w/w+10, h/2-19+(i*36), 255, 255, 255, 255, "-", nil, "AI")
         end
-        
-        avatar:draw((ui.get(ind_loc) == "Left" and w/w+5 or w-35), h/2-23, 20, 20, 255, 255, 255, 255, true)
-        renderer.text((ui.get(ind_loc) == "Left" and w/w+35 or w-47), h/2-25, 46, 204, 113, 255, ui.get(ind_loc) == "Left" and "-" or "-r", 0, p.name)
-        draw_slider((ui.get(ind_loc) == "Left" and w/w+35 or w-145), h/2-25, 100, ui.get(display_locations) and p.location or "", math.min(1, p.hp/100-0.02), p.hp, "", true, {148, 184, 6, 255}, {98, 134, 0, 255})
+        if entity.get_prop(entity.get_player_resource(), "m_iPlayerC4") == enemy then
+            local wide, height = surface.get_text_size(font, string.format("%s", p.name))
+            local color = entity.is_dormant(enemy) and {200, 200, 200, 255} or {255, 75, 75, 255}
+            surface.draw_text(w/w+30+(wide+3), h/2-25+(i*36), color[1], color[2], color[3], 255, font, "C4")
+        end
     end
 end
 
-ui.set_visible(display_items, false)
-ui.set_visible(display_locations, false)
-ui.set_visible(ind_loc, false)
-
-local function toggle()
-    ui.set_visible(display_items, ui.get(ind_enable))
-    ui.set_visible(display_locations, ui.get(ind_enable))
-    ui.set_visible(ind_loc, ui.get(ind_enable))
-    if ui.get(ind_enable) then
-        client.set_event_callback("paint", main)
-    else
-        client.unset_event_callback("paint", main)
+local function toggle(get)
+    if ui.get(get) then
+        client.set_event_callback("paint", main) else client.unset_event_callback("paint", main)
     end
 end
 
-ui.set_callback(ind_enable, toggle)
+ui.set_callback(enable_hud, toggle)
